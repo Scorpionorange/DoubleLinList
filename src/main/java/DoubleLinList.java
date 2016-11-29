@@ -97,9 +97,53 @@ public class DoubleLinList implements List {
         }
         // 修改，添加一个变量记录current地址
         DNode t = new DNode();
+        t.setElement(current.getElement());
+        t.setNext(current.getNext());
+        t.setPrior(current.getPrior());
+        current.getPrior().setNext(t);
+        index(i);
+        Object object = current.getElement();
+        // 新增后把current地址还原
+        current = t;
+        return object;
     }
 
+    /**
+     * 输出链表数据
+     */
+    public void output(){
+        DNode t = head.getNext();
+        for(; t != null; t = t.getNext()){
+            System.out.print(t.getElement() + "");
+        }
+        System.out.println();
+    }
 
+    public static void main(String[] args) throws Exception{
+        DoubleLinList dl = new DoubleLinList();
+
+        System.out.println("向双向链表中依次添加11，22，33");
+        // 下标从0开始
+        // 向双向链表中新增第一个数据
+        dl.add(11);
+        // 向双向链表中新增第二个数据
+        dl.add(22);
+        // 向双向链表中新增第三个数据
+        dl.add(33);
+        dl.output();
+        System.out.println("向双向链表中第二个位置插入44");
+        dl.insert(1,44);
+        dl.output();
+        // 输出链表的长度
+        System.out.println("输出链表的长度：" + dl.size());
+        // 获得下标为2的节点中的数据
+        System.out.println("输出下标为2的数据：" + dl.getData(2));
+        // 删除下标为1的节点
+        dl.delete(1);
+        // 输出删除后链表的长度
+        System.out.println("删除下标为1的节点后的链表长度：" + dl.size());
+        dl.output();
+    }
 
     public int size() {
         return 0;
